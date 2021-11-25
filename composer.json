@@ -9,7 +9,7 @@
 
   "autoload": {
     "psr-4": {
-      "mywishlist\\": "./src"
+      "boissons\\": "./src"
     }
   }
 }
