@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+include 'src/models/Donnees.inc.php';
+
 session_start();
 
 require 'vendor/autoload.php';
