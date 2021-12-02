@@ -2,7 +2,6 @@
 
 
 namespace boissons\controls;
-include 'src/models/Donnees.inc.php';
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -29,7 +28,9 @@ class ControleurAccueil {
      * @return Response
      */
     public function accueil(Request $rq, Response $rs, $args) : Response {
-        $vue = new VueAccueil(array(), $this->container);
+        include('Donnees.inc.php');
+        $arrayHierarchie = array($Hierarchie, $Hierarchie['Aliment']);
+        $vue = new VueAccueil($arrayHierarchie, $this->container);
         $rs->getBody()->write($vue->render(0));
         return $rs;
     }

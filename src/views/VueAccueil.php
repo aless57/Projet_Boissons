@@ -27,6 +27,17 @@ class VueAccueil
 
     }
 
+    public function afficherInformations($arrayHierarchie) : string{
+        $html = "";
+        foreach ($arrayHierarchie as $value){
+            $html .= <<<FIN
+
+FIN;
+
+        }
+
+        return '';
+    }
     /**
      * RENDER
      * @param int $select
@@ -43,9 +54,9 @@ class VueAccueil
 </head>
 <body>
     <p>YOOOOO</p>
-</body>
-</html>
 FIN;
+
+        var_dump($this->tab[1]);
         switch ($select){
             case 0:
 
@@ -53,6 +64,11 @@ FIN;
             default:
                 break;
         }
+        $html .= <<<FIN
+</body>
+</html>
+FIN;
+
         return $html;
     }
 }
