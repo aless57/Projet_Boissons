@@ -23,13 +23,14 @@ foreach ($Hierarchie as $key => $value) {
 }
 
 foreach ($Recettes as $value){
-    $titre = $value['titre'];
+    $titre = str_replace("'", "\'",$value['titre']);
     $ing = $value['ingredients'];
-    $prepa = $value['preparation'];
+    $prepa = str_replace('"', '\"',$value['preparation']);
     $Sql="INSERT INTO  `recettes` (`titre`, `ingredients`, `preparation`)  VALUES(\"$titre\",\"$ing\",\"$prepa\")";
     $res = mysqli_query($mysqli,$Sql) or die($Sql . " : " . mysqli_error($mysqli));
     $Sql="SELECT id from recettes where titre like \"$titre\"";
-    $id = mysqli_query($mysqli,$Sql) or die($Sql . " : " . mysqli_error($mysqli));
+    $result = mysqli_query($mysqli,$Sql) or die($Sql . " : " . mysqli_error($mysqli));
+    $id = mysqli_fetch_array($result)[0];
     foreach ($value['index'] as $i){
         $Sql="INSERT INTO  `index` (`idRecette`, `nom`)  VALUES(\"$id\",\"$i\")";
         $res = mysqli_query($mysqli,$Sql) or die($Sql . " : " . mysqli_error($mysqli));
