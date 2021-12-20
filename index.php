@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-include 'src/models/Donnees.inc.php';
+include('Donnees.inc.php');
 
 session_start();
 
@@ -22,6 +22,6 @@ $app = new \Slim\App($container);
 
 //Chemin Accueil
 $app->get('/', ControleurAccueil::class.':accueil')->setName('racine');
-
+$app->get('/{element}',ControleurAccueil::class.':afficherInformation')->setName('afficherInformation');
 
 $app->run();
