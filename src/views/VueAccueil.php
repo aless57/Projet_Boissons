@@ -33,7 +33,7 @@
          * @param $arrayHierarchie
          * @return string
          */
-        public function afficherInformations($arrayHierarchie,$name) : string{
+        public function afficherInformations($arrayHierarchie,$name){
             $html = "<h1> $name </h1>";
             $test = array_keys($arrayHierarchie);
             switch (count($test)){
@@ -145,7 +145,7 @@
          * @param int $select
          * @return string
          */
-        public function render( int $select ) : string
+        public function render( int $select )
         {
             $html = <<<FIN
     <!DOCTYPE html>
