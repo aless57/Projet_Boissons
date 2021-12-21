@@ -200,7 +200,7 @@ FIN;
         {
             $url_affichageHome = $this->container->router->pathFor("racine");
             $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
-
+            $url_inscription = $this->container->router->pathFor("inscription");
             $html = <<<FIN
     <!DOCTYPE html>
 <html lang="en">
@@ -235,14 +235,27 @@ FIN;
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>           
+FIN;
+            if (isset($_SESSION['profile']['username'])){
+                // l'utilisateur est connecté
+                $html .= <<<FIN
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">Connecté</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 FIN;
-
+            }else{
+                // l'utilisateur n'est pas connecté
+                $html .= <<<FIN
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_inscription">Connexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+FIN;
+            }
             switch ($select){
                 //Home
                 case 0:

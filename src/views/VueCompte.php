@@ -27,38 +27,44 @@ class VueCompte
         // proposition de redirection vers une connexion si on possède deja un compte
         $url_redirConnexion = $this->container->router->pathFor('connexion');
         $html = <<<FIN
-        <div class="card card_form">
-            <div class="card-header text-center">
-                Inscrivez vous !
-            </div>
-            <div class="card-body">
-                <form method="POST" action="$url_enregistrerInscription">
-                    <div class="form-group">
-                        <label for="form_nom" >Nom</label>
-                        <input type="text" class="form-control" id="form_nom" placeholder="Rzepka" name="nom" required>
+        <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+                                    <div class="text-center">
+                                        Inscrivez vous !
+                                    </div>
+                                    <div class="card-body">
+                                        <form method="POST" action="$url_enregistrerInscription">
+                                            <div class="form-group">
+                                                <label for="form_nom" >Nom</label>
+                                                <input type="text" class="form-control" id="form_nom" placeholder="DEMANGE" name="nom" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_prenom" >Prénom</label>
+                                                <input type="text" class="form-control" id="form_prenom" placeholder="Alessi" name="prenom" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_login" >Login</label>
+                                                <input type="text" class="form-control" id="form_login" placeholder="aless57" name="login" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_pass" >Mot de passe</label>
+                                                <input type="password" class="form-control" id="form_pass" placeholder="Mot de passe" name="pass" required>
+                                            </div>
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary text-center">Enregistrer le login</button>
+                                            </div>
+                                         
+                                        </form>    
+                                    </div>
+                                    <div class="text-center" > 
+                                        Déjà un compte ? <a href="$url_redirConnexion"> Se connecter </a>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="form_prenom" >Prénom</label>
-                        <input type="text" class="form-control" id="form_prenom" placeholder="Thomas" name="prenom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="form_login" >Login</label>
-                        <input type="text" class="form-control" id="form_login" placeholder="thomasRz" name="login" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="form_pass" >Mot de passe</label>
-                        <input type="password" class="form-control" id="form_pass" placeholder="Mot de passe" name="pass" required>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary text-center">Enregistrer le login</button>
-                    </div>
-                 
-                </form>    
-            </div>
-            <div class="card-footer text-center" > 
-                Déjà un compte ? <a href="$url_redirConnexion"> Se connecter </a>
-            </div>
-        </div>
+                </div>
         FIN;
         return $html;
     }
@@ -73,29 +79,36 @@ class VueCompte
         // redirection vers le formulaire d'inscription si on ne possède pas encore de compte
         $url_redirInscription = $this->container->router->pathFor('inscription');
         $html = <<<FIN
-        <div class="card card_form">
-            <div class="card-header text-center">
-                Connectez vous !
-            </div>
-            <div class="card-body">
-                <form method="POST" action="$url_testConnexion">
-                    <div class="form-group">
-                        <label for="form_login" >Login</label>
-                        <input type="text" class="form-control" id="form_login" placeholder="thomasRz" name="login" required>
+        <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+                                <div class="text-center">
+                                    Connectez vous !
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST" action="$url_testConnexion">
+                                        <div class="form-group">
+                                            <label for="form_login" >Login</label>
+                                            <input type="text" class="form-control" id="form_login" placeholder="thomasRz" name="login" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="form_pass" >Mot de passe</label>
+                                            <input type="password" class="form-control" id="form_nom" placeholder="Mot de passe" name="pass" required>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                                        </div>
+                                    </form> 
+                                </div>
+                                <div class="text-center" > 
+                                    Pas encore de compte ? <a href="$url_redirInscription"> En créer un </a>
+                                </div>
+                            </div>   
+                           </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="form_pass" >Mot de passe</label>
-                        <input type="password" class="form-control" id="form_nom" placeholder="Mot de passe" name="pass" required>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Se connecter</button>
-                    </div>
-                </form> 
-            </div>
-            <div class="card-footer text-center" > 
-                Pas encore de compte ? <a href="$url_redirInscription"> En créer un </a>
-            </div>
-        </div>   
+                </div>
         FIN;
         return $html;
     }
@@ -286,32 +299,65 @@ class VueCompte
      */
     public function render( int $select ) : string
     {
-        $url_accueil = $this->container->router->pathFor('racine');
-        $url_item = $this->container->router->pathFor('participer');
-        $url_deconnexion = $this->container->router->pathFor('deconnexion');
-        $content = "";
-        $pathIntermediaire="";
-        $path = "";
+        $url_affichageHome = $this->container->router->pathFor("racine");
+        $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
+        $url_inscription = $this->container->router->pathFor("inscription");
+        $html = <<<FIN
+    <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Projet Web Licence Informatique</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">WEB Project</span>
+                <span class="site-heading-lower">Web Bar & Co</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>           
+FIN;
 
-        // pas le même état si l'utilisateur est connecté ou non
         if (isset($_SESSION['profile']['username'])){
             // l'utilisateur est connecté
-            // le bouton affiche Mon Compte
-            $connected = "Mon Compte";
-            // le bouton redirige vers l'affichage du compte
-            $url_compte = $this->container->router->pathFor('afficherCompte');
-            // le bouton pour accéder aux listes mène aux listes
-            $url_liste = $this->container->router->pathFor('afficherMesListes');
+            $html .= <<<FIN
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">Connecté</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+FIN;
         }else{
             // l'utilisateur n'est pas connecté
-            // le bouton affiche Connexion
-            $connected = "Connexion";
-            // le bouton redirige vers le formulaire de connexion
-            $url_compte = $this->container->router->pathFor('connexion');
-            // le bouton pour accéder aux listes mène au formulaire de connexion, on ne peux pas accéder à ses listes si on est pas connecté
-            $url_liste = $this->container->router->pathFor('connexion');
+            $html .= <<<FIN
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_inscription">Connexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+FIN;
         }
-
         switch ($select) {
             //connexion echec: message d'erreur + réaffichage du formulaire de connexion
             case 0 :
@@ -321,8 +367,7 @@ class VueCompte
             //connexion: formulaire de connexion
             case 1 :
             {
-                $current_page = "Connexion";
-                $content .= $this->formConnexion();
+                $html .= $this->formConnexion();
                 break;
             }
             // inscription echec: message d'erreur + réaffichage du formulaire d'inscription
@@ -333,8 +378,7 @@ class VueCompte
             //inscription: formulaire d'inscription
             case 3 :
             {
-                $current_page = "Inscription";
-                $content .= $this->formInscription();
+                $html .= $this->formInscription();
                 break;
             }
             //accès au compte apres inscription
@@ -416,50 +460,9 @@ class VueCompte
                 break;
             }
         }
-        $html = <<<FIN
-<!DOCTYPE html>
-<html>
-<head>
-    <title>MyWishList</title>
-    <link rel="stylesheet" href="{$path}css/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="$url_accueil">
-        <img src="{$path}img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        MYWISHLIST
-        </a>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item"> <a class="nav-link" href="$url_accueil">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link" href="$url_item">Participer à une liste</a></li>
-                <li class="nav-item"><a class="nav-link" href="$url_liste">Gérer mes listes</a></li>
-                <li class="nav-item"><a class="nav-link active" href="$url_compte">$connected</a></li>
-            </ul>
-        </div>
-    </nav>
-    
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item " aria-current="page"><a href="$url_accueil">Home</a></li>
-            $pathIntermediaire
-            <li class="breadcrumb-item active" aria-current="page">$current_page</li>
-        </ol>
-    </nav>
-            $content
-</body>
-   
-</html>
+        $html .= <<<FIN
+    </body>
+    </html>
 FIN;
         return $html;
     }

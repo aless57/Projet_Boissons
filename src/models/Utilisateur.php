@@ -1,13 +1,12 @@
 <?php
 
+namespace boissons\models;
+
 class Utilisateur extends \Illuminate\Database\Eloquent\Model {
 
-    protected $table = 'user';
-    protected $primaryKey = 'id';
+    protected $table = 'utilisateur';
+    protected $primaryKey = 'login';
     public $timestamps = false;
 
-    public function Liste() {
-        return $this->hasOne('\mywishlist\models\Liste', 'user_id');
-    }
 
 }

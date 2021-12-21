@@ -4,8 +4,8 @@ namespace boissons\controls;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use src\viws\VueCompte;
-use src\models\Utilisateur;
+use boissons\views\VueCompte;
+use boissons\controls\Authentification;
 
 class ControleurCompte
 {
@@ -18,17 +18,6 @@ class ControleurCompte
      */
     public function __construct($container) {
         $this->container = $container;
-        $today = getdate();
-        $jour = $today['mday'];
-        $mois = $today['mon'];
-        $annee = $today['year'];
-        if ($mois < 10) {
-            $mois = 0 . $mois;
-        }
-        if ($jour < 10) {
-            $jour = 0 . $jour;
-        }
-        $this->today = $annee . "-" . $mois . "-" . $jour;
     }
 
     /**
@@ -62,11 +51,11 @@ class ControleurCompte
         $vue = new VueCompte( [ 'login' => $login ] , $this->container ) ;
         try {
             //redirection sur mon afficherCompte avec $_SESSION
-            Authentication::createUser($nom, $prenom,$login, $pass);
-            Authentication::authenticate($login, $pass);
+            Authentification::createUser($nom, $prenom,$login, $pass);
+            Authentification::authenticate($login, $pass);
             $_SESSION['inscriptionOK'] = true;
-            $url_afficherCompte = $this->container->router->pathFor("afficherCompte");
-            return $rs->withRedirect($url_afficherCompte);
+            $url_accueil = $this->container->router->pathFor("racine");
+            return $rs->withRedirect($url_accueil);
         }
         catch (Exception $e) {
             $rs->getBody()->write( $vue->render(2));
@@ -111,7 +100,8 @@ class ControleurCompte
         $post = $rq->getParsedBody() ;
         $login = filter_var($post['login']       , FILTER_SANITIZE_STRING) ;
         $pass = filter_var($post['pass'] , FILTER_SANITIZE_STRING) ;
-        $connexionOK = Authentication::authenticate($login, $pass);
+        $connexionOK = Authentification::authenticate($login, $pass);
+        var_dump($connexionOK);
         if ($connexionOK){
             $url_compte = $this->container->router->pathFor("afficherCompte");
             return $rs->withRedirect($url_compte);
