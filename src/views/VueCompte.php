@@ -362,7 +362,7 @@ FIN;
             //connexion echec: message d'erreur + réaffichage du formulaire de connexion
             case 0 :
             {
-                $content = "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Mot de passe incorrect !</div>";
+                $html .= "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Mot de passe incorrect !</div>";
             }
             //connexion: formulaire de connexion
             case 1 :
@@ -373,7 +373,7 @@ FIN;
             // inscription echec: message d'erreur + réaffichage du formulaire d'inscription
             case 2 :
             {
-                $content = "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de l'inscription ! Ce login existe déjà</div>";
+                $html .= "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de l'inscription ! Ce login existe déjà</div>";
             }
             //inscription: formulaire d'inscription
             case 3 :
@@ -384,12 +384,12 @@ FIN;
             //accès au compte apres inscription
             case 4 :
             {
-                $content = "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Inscription réussie ! Login <b> {$this->tab['login']} </b> enregistré</div>";
+                $html .= "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Inscription réussie ! Login <b> {$this->tab['login']} </b> enregistré</div>";
             }
             //accès au compte apres connexion
             case 5 :
             {
-                $content .= 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
+                $content = 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
                 $current_page = "Espace personnel";
                 break;
@@ -399,7 +399,7 @@ FIN;
             {
                 $path = "../";
                 $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
-                $content .= $this->modifierInformations();
+                $content = $this->modifierInformations();
                 $current_page = "Modifier mon compte";
                 break;
             }
@@ -454,7 +454,7 @@ FIN;
             {
                 $path = "../";
                 $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
-                $content.= "<div class=\"alert alert-danger\" role=\"alert\"<i class=\"fa fa-times\" aria-hidden=\"true\"></i> >Les deux mots de passe sont différents !</div>";
+                $content = "<div class=\"alert alert-danger\" role=\"alert\"<i class=\"fa fa-times\" aria-hidden=\"true\"></i> >Les deux mots de passe sont différents !</div>";
                 $content .= $this->changerMotDePasse();
                 $current_page = "Modifier mon mot de passe";
                 break;

@@ -23,7 +23,8 @@ $app = new \Slim\App($container);
 
 //Chemin Accueil
 $app->get('/', ControleurAccueil::class.':accueil')->setName('racine');
-$app->get('/{element}',ControleurAccueil::class.':afficherInformation')->setName('afficherInformation');
+$app->get('/afficher/{element}',ControleurAccueil::class.':afficherInformation')->setName('afficherInformation');
+$app->get('/deconnexion/',ControleurCompte::class.':deconnexion')->setName('deconnexion');
 
 
 //Chemin Compte

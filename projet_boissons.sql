@@ -110,7 +110,7 @@ CREATE TABLE `utilisateur` (
   `nom` varchar(20) NOT NULL,
   `prenom` varchar(20) NOT NULL,
   `login` varchar(20) NOT NULL,
-  `mdp` varchar(20) NOT NULL
+  `mdp` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

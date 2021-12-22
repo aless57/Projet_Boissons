@@ -2,6 +2,7 @@
 
 namespace boissons\controls;
 
+use boissons\views\VueAccueil;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use boissons\views\VueCompte;
@@ -103,7 +104,7 @@ class ControleurCompte
         $connexionOK = Authentification::authenticate($login, $pass);
         var_dump($connexionOK);
         if ($connexionOK){
-            $url_compte = $this->container->router->pathFor("afficherCompte");
+            $url_compte = $this->container->router->pathFor("racine");
             return $rs->withRedirect($url_compte);
         }else{
             $_SESSION['connexionOK']=false;
@@ -211,8 +212,7 @@ class ControleurCompte
     public function deconnexion(Request $rq, Response $rs, $args) : Response {
         session_destroy();
         $_SESSION = [];
-        $url_accueil = $this->container->router->pathFor('racine');
-        $vue = new VueCompte( [], $this->container);
+        $url_accueil = $this->container->router->pathFor('connexion');
         return $rs->withRedirect($url_accueil);
     }
 }

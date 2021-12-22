@@ -1,11 +1,11 @@
 <?php
 
 namespace boissons\controls;
-
 use \boissons\models\Utilisateur;
 
 /**
  * Class Authentication
+ * @author Alessi
  * @package boissons\controls
  */
 class Authentification {
@@ -38,7 +38,7 @@ class Authentification {
      * @return bool
      */
     public static function authenticate($username, $password) {
-        $u = Utilisateur::where('login','=',$username)->first();
+        $u = Utilisateur::where('login','LIKE',$username)->first();
         if(gettype($u) != 'NULL'){
             $res = password_verify($password, $u->mdp);
         }
@@ -46,7 +46,7 @@ class Authentification {
             $res = false;
         }
         if ($res){
-            self::loadProfile($u->id);
+            self::loadProfile($u->login);
         }
 
         return $res;
@@ -56,12 +56,12 @@ class Authentification {
      * Fonction pour stocker le profile dans la variable de session
      * @param $uid
      */
-    private static function loadProfile($uid) {
+    private static function loadProfile($login) {
         session_destroy();
         $_SESSION = [];
         session_start();
-        setcookie("user_id", $uid, time() + 60*60*24*30, "/" );
-        $_SESSION['profile'] = array('username' => Utilisateur::where('id','=',$uid)->first()->login, 'userid' => $uid);
+        setcookie("user_id", $login, time() + 60*60*24*30, "/" );
+        $_SESSION['profile'] = array('username' => Utilisateur::where('login','=',$login)->first()->login, 'userid' => $uid);
     }
 
     public static function checkAccessRights($required) {
