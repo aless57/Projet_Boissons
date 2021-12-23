@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 20 déc. 2021 à 15:21
+-- Généré le : jeu. 23 déc. 2021 à 17:58
 -- Version du serveur :  10.4.18-MariaDB
 -- Version de PHP : 8.0.3
 
@@ -110,7 +110,14 @@ CREATE TABLE `utilisateur` (
   `nom` varchar(20) NOT NULL,
   `prenom` varchar(20) NOT NULL,
   `login` varchar(20) NOT NULL,
-  `mdp` varchar(500) NOT NULL
+  `mdp` varchar(200) NOT NULL,
+  `sexe` varchar(10) NOT NULL,
+  `mail` varchar(100) NOT NULL,
+  `naissance` date NOT NULL,
+  `adresse` varchar(100) NOT NULL,
+  `postal` int(5) NOT NULL,
+  `ville` varchar(20) NOT NULL,
+  `tel` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
