@@ -173,7 +173,7 @@ FIN;
                                     if(!is_dir($path)){
                                         if($nomPhoto == $value){
                                             $html .= "<h4> Photo associee : </h4>";
-                                            $html .= "<img src='Photos/$value' alt='Image' height='100' width='100'>";
+                                            $html .= "<img src='../Photos/$value' alt='Image' height='100' width='100'>";
                                             $test = false;
                                             break;
                                         }
