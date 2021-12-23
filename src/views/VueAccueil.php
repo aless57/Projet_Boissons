@@ -202,45 +202,12 @@ FIN;
             $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
             $url_inscription = $this->container->router->pathFor("inscription");
             $url_deconnexion = $this->container->router->pathFor("deconnexion");
-            $html = <<<FIN
-    <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Projet Web Licence Informatique</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-        <header>
-            <h1 class="site-heading text-center text-faded d-none d-lg-block">
-                <span class="site-heading-upper text-primary mb-3">WEB Project</span>
-                <span class="site-heading-lower">Web Bar & Co</span>
-            </h1>
-        </header>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>           
-FIN;
+
+            $connexion = "";
+            $content = "";
             if (isset($_SESSION['profile']['username'])){
                 // l'utilisateur est connecté
-                $html .= <<<FIN
+                $connexion .= <<<FIN
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_deconnexion">Deconnexion</a></li>
                     </ul>
                 </div>
@@ -249,7 +216,7 @@ FIN;
 FIN;
             }else{
                 // l'utilisateur n'est pas connecté
-                $html .= <<<FIN
+                $connexion .= <<<FIN
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_inscription">Connexion</a></li>
                     </ul>
                 </div>
@@ -260,11 +227,12 @@ FIN;
             switch ($select){
                 //Home
                 case 0:
+                    $url = "";
 //                    $ensembleNom = array_keys($this->tab[0]);
 //                    $nomAliment = end($ensembleNom);
 //                    $url_affichage =$this->container->router->pathFor("afficherInformation",['element' => $nomAliment]);
 //                    $html .= "<a href=$url_affichage>$nomAliment</a>" ;
-                    $html .= <<<FIN
+                    $content .= <<<FIN
 <section class="page-section clearfix">
             <div class="container">
                 <div class="intro">
@@ -285,14 +253,56 @@ FIN;
 
                     break;
                 case 1:
+                    $url = "../";
                     //Affiche Hierarchie
-                    $html .= $this->afficherInformations($this->tab[0],$this->tab[1]);
+                    $content .= $this->afficherInformations($this->tab[0],$this->tab[1]);
                     //Affichage Recette
-                    $html .= $this->afficherRecette($this->tab[2], $this->tab[1]);
+                    $content .= $this->afficherRecette($this->tab[2], $this->tab[1]);
                     break;
                 default:
                     break;
             }
+            $urlentierCss = $url . "css/styles.css";
+            $html = <<<FIN
+    <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Projet Web Licence Informatique</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="$urlentierCss" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">WEB Project</span>
+                <span class="site-heading-lower">Web Bar & Co</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>           
+FIN;
+
+            $html .= $connexion;
+            $html .= $content;
+
             $html .= <<<FIN
     </body>
     </html>
