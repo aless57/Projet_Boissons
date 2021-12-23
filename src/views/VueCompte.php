@@ -396,7 +396,7 @@ class VueCompte
     public function render( int $select ) : string
     {
         $url_affichageHome = $this->container->router->pathFor("racine");
-        $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
+        $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Hierarchie']);
         $url_inscription = $this->container->router->pathFor("inscription");
         $url_compte = $this->container->router->pathFor("afficherCompte");
 

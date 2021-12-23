@@ -5,7 +5,7 @@ namespace boissons\controls;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use boissons\views\VueAccueil;
-
+use boissons\models\Hierarchie;
 
 
 class ControleurAccueil {
@@ -24,7 +24,7 @@ class ControleurAccueil {
 
     /**
      * GET
-     * Affichage de l'accueil avec l'aliment "Aliment"
+     * Affichage de l'accueil avec l'aliment "Hierarchie"
      * @param Request $rq
      * @param Response $rs
      * @param $args
@@ -32,9 +32,15 @@ class ControleurAccueil {
      */
     public function accueil(Request $rq, Response $rs, $args) : Response {
         include('Donnees.inc.php');
-        $arrayHierarchie = array($Hierarchie, $Hierarchie['Aliment']);
+        $arrayHierarchie = array($Hierarchie, $Hierarchie['Hierarchie']);
         $vue = new VueAccueil($arrayHierarchie, $this->container);
         $rs->getBody()->write($vue->render(0));
+        return $rs;
+    }
+
+    public function recherche(Request $rq, Response $rs, $args) : Response {
+        $vue = new VueAccueil([], $this->container);
+        $rs->getBody()->write($vue->render(2));
         return $rs;
     }
 

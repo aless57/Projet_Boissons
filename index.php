@@ -25,6 +25,7 @@ $app = new \Slim\App($container);
 $app->get('/', ControleurAccueil::class.':accueil')->setName('racine');
 $app->get('/afficher/{element}',ControleurAccueil::class.':afficherInformation')->setName('afficherInformation');
 $app->get('/deconnexion/',ControleurCompte::class.':deconnexion')->setName('deconnexion');
+$app->get('/recherche/',ControleurAccueil::class.':recherche')->setName('recherche');
 
 
 //Chemin Compte
