@@ -38,22 +38,54 @@ class VueCompte
                                         <form method="POST" action="$url_enregistrerInscription">
                                             <div class="form-group">
                                                 <label for="form_nom" >Nom</label>
-                                                <input type="text" class="form-control" id="form_nom" placeholder="DEMANGE" name="nom" required>
+                                                <input type="text" class="form-control" id="form_nom" placeholder="" name="nom" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="form_prenom" >Prénom</label>
-                                                <input type="text" class="form-control" id="form_prenom" placeholder="Alessi" name="prenom" required>
+                                                <input type="text" class="form-control" id="form_prenom" placeholder="" name="prenom" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="form_login" >Login</label>
-                                                <input type="text" class="form-control" id="form_login" placeholder="aless57" name="login" required>
+                                                <input type="text" class="form-control" id="form_login" placeholder="" name="login" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="form_pass" >Mot de passe</label>
-                                                <input type="password" class="form-control" id="form_pass" placeholder="Mot de passe" name="pass" required>
+                                                <input type="password" class="form-control" id="form_pass" placeholder="" name="pass" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_mail" >Adresse mail</label>
+                                                <input type="text" class="form-control" id="form_mail" placeholder="" name="mail" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_sexe" >Sexe</label>
+                                                <select class="form-control" id="form_sexe" name="sexe">
+                                                    <option value=""></option>
+                                                    <option value="Homme">Homme</option>
+                                                    <option value="Femme">Femme</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_naissance" >Date de naissance</label>
+                                                <input type="date" class="form-control" id="form_naissance" placeholder="" name="naissance" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_adresse" >Adresse</label>
+                                                <input type="text" class="form-control" id="form_adresse" placeholder="" name="adresse" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_postal" >Code postal</label>
+                                                <input type="text" class="form-control" id="form_postal" placeholder="" name="postal" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_ville" >Ville</label>
+                                                <input type="text" class="form-control" id="form_ville" placeholder="" name="ville" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="form_tel" >Téléphone</label>
+                                                <input type="text" class="form-control" id="form_tel" placeholder="" name="tel" required>
                                             </div>
                                             <div class="text-center">
-                                                <button type="submit" class="btn btn-primary text-center">Enregistrer le login</button>
+                                                <button type="submit" class="btn btn-primary text-center">Enregistrer le compte</button>
                                             </div>
                                          
                                         </form>    

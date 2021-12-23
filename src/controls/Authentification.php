@@ -17,7 +17,7 @@ class Authentification {
      * @param $password
      * @throws \Exception
      */
-    public static function createUser($nom, $prenom, $username, $password) {
+    public static function createUser($nom, $prenom, $username, $password, $sexe, $mail, $naissance, $adresse, $postal, $ville, $tel) {
         $nb = Utilisateur::where('login','=',$username)->count();
         if ($nb == 0) {
             $u = new Utilisateur();
@@ -25,6 +25,13 @@ class Authentification {
             $u->prenom = $prenom;
             $u->login = $username;
             $u->mdp = password_hash($password, PASSWORD_DEFAULT);
+            $u->sexe = $sexe;
+            $u->mail = $mail;
+            $u->naissance = $naissance;
+            $u->adresse = $adresse;
+            $u->postal = $postal;
+            $u->ville = $ville;
+            $u->tel = $tel;
             $u->save();
         } else {
             throw new \Exception();

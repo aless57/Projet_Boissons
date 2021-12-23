@@ -45,14 +45,21 @@ class ControleurCompte
      */
     public function enregistrerInscription(Request $rq, Response $rs, $args) : Response {
         $post = $rq->getParsedBody();
-        $login = filter_var($post['login']       , FILTER_SANITIZE_STRING) ;
+        $login = filter_var($post['login'] , FILTER_SANITIZE_STRING) ;
         $pass = filter_var($post['pass'] , FILTER_SANITIZE_STRING) ;
         $nom = filter_var($post['nom'], FILTER_SANITIZE_STRING);
         $prenom = filter_var($post['prenom'], FILTER_SANITIZE_STRING);
+        $sexe = filter_var($post['sexe'], FILTER_SANITIZE_STRING);
+        $mail = filter_var($post['mail'], FILTER_SANITIZE_EMAIL);
+        $naissance = filter_var($post['naissance'], FILTER_SANITIZE_STRING);
+        $adresse = filter_var($post['adresse'], FILTER_SANITIZE_STRING);
+        $postal = filter_var($post['postal'], FILTER_SANITIZE_STRING);
+        $ville = filter_var($post['ville'], FILTER_SANITIZE_STRING);
+        $tel = filter_var($post['tel'], FILTER_SANITIZE_STRING);
         $vue = new VueCompte( [ 'login' => $login ] , $this->container ) ;
         try {
             //redirection sur mon afficherCompte avec $_SESSION
-            Authentification::createUser($nom, $prenom,$login, $pass);
+            Authentification::createUser($nom, $prenom,$login, $pass, $sexe, $mail, $naissance, $adresse, $postal,$ville, $tel);
             Authentification::authenticate($login, $pass);
             $_SESSION['inscriptionOK'] = true;
             $url_accueil = $this->container->router->pathFor("racine");
