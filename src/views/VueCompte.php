@@ -158,19 +158,23 @@ class VueCompte
         $nom = $this->tab['nom'];
         $prenom = $this->tab['prenom'];
         $login = $this->tab['login'];
-        if ($this->tab['email'] != null) {
-            $email = $this->tab['email'];
-        } else {
-            $email = "Pas encore d'email enregistré";
-        }
+        $email = $this->tab['mail'];
+        $sexe = $this->tab['sexe'];
+        $dateDeNaissance = $this->tab['naissance'];
+        $adresse = $this->tab['adresse'];
+        $codePostal = $this->tab['postal'];
+        $ville = $this->tab['ville'];
+        $telephone = $this->tab['tel'];
         $supprimer = "<button type=\"button\" class=\"btn btn-secondary\" data-toggle=\"modal\" data-target=\"#confirmationSupp_{$login}\"><span class=\"fa fa-trash fa-lg\"></span> Supprimer le compte</button>";
 //        $email = "Pas encore d'email enregistré";
         $html = <<<FIN
-        <div class="card card_form" xmlns="http://www.w3.org/1999/html">
-            <div class="card-header text-center">
-                Mes informations
-            </div>
-            <div class="card-body">
+            <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+                            <h3 class="text-center ">
+                 Mes informations
+            </h3>
                 <form>
                     <div class="form-group row">
                         <label for="form_prenom" class="col-sm-2 col-form-label">   Prénom :</label>
@@ -193,20 +197,61 @@ class VueCompte
                    <div class="form-group row">
                         <label for="form_login" class="col-sm-2 col-form-label">Email :</label>
                         <div class="col-sm-10">
-                            <input readonly type="text" class="form-control" id="form_login" placeholder="{$email}" name="login" required>
+                            <input readonly type="text" class="form-control" id="form_email" placeholder="{$email}" name="email" required>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="form_login" class="col-sm-2 col-form-label">Sexe :</label>
+                        <div class="col-sm-10">
+                            <input readonly type="text" class="form-control" id="form_sexe" placeholder="{$sexe}" name="sexe" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="form_login" class="col-sm-2 col-form-label">Date de naissance :</label>
+                        <div class="col-sm-10">
+                            <input readonly type="text" class="form-control" id="form_DateDeNaissance" placeholder="{$dateDeNaissance}" name="dateDeNaissance" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="form_login" class="col-sm-2 col-form-label">Adresse :</label>
+                        <div class="col-sm-10">
+                            <input readonly type="text" class="form-control" id="form_adresse" placeholder="{$adresse}" name="adresse" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="form_login" class="col-sm-2 col-form-label">Code Postal :</label>
+                        <div class="col-sm-10">
+                            <input readonly type="text" class="form-control" id="form_codePostal" placeholder="{$codePostal}" name="codePostal" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="form_login" class="col-sm-2 col-form-label">Ville :</label>
+                        <div class="col-sm-10">
+                            <input readonly type="text" class="form-control" id="form_ville" placeholder="{$ville}" name="ville" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="form_login" class="col-sm-2 col-form-label">Telephone :</label>
+                        <div class="col-sm-10">
+                            <input readonly type="text" class="form-control" id="form_telephone" placeholder="{$telephone}" name="telephone" required>
+                        </div>
+                    </div>
+                    <br>
                     <div class="text-center">
                         <a type="submit" class="btn btn-primary" href="$url_modifier" role="button">Modifier mes informations</a>
                         <a type="submit" class="btn btn-warning" href="$url_changemdp" role="button">Changer mon mot de passe</a>
                     </div>
-                </form> 
-            </div>
-        </div>  
-        <div class="text-center deconnexion">
+                    <br>
+                    <div class="text-center deconnexion">
             <a href='$url_deconnexion' class="btn btn-danger text-center">Déconnexion</a> 
             $supprimer
         </div>
+                </form> 
+                </div>
+                </div>
+                </div>
+                </div>
+        
         <div class="modal fade" id="confirmationSupp_{$login}" tabindex="-1" role="dialog" aria-labelledby="confirmation" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -241,12 +286,7 @@ class VueCompte
         $nom = $this->tab['nom'];
         $prenom = $this->tab['prenom'];
         $login = $this->tab['login'];
-        if ($this->tab['email'] != null) {
-            $email = $this->tab['email'];
-        } else {
-            $email = "";
-        }
-//        $email = "Pas encore d'email enregistré";
+        $email = $this->tab['mail'];
         $html = <<<FIN
         <div class="card card_form">
             <div class="card-header text-center">
@@ -254,32 +294,56 @@ class VueCompte
             </div>
             <div class="card-body">
                 <form method="POST" action="$url_enregistrerModif">
-                    <div class="form-group row">
-                        <label for="form_prenom" class="col-sm-2 col-form-label">   Prénom :</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="form_prenom" placeholder="Prénom" name="prenom" value="{$prenom}" required>
-                        </div>
-                        <label for="form_nom" class="col-sm-2 col-form-label">   Nom :</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="form_nom" placeholder="Nom" value="{$nom}" name="nom" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="form_nom" >Nom</label>
+                        <input type="text" class="form-control" id="form_nom" placeholder="" name="nom" required>
                     </div>
-                        
-                    <div class="form-group row">
-                        <label for="form_login" class="col-sm-2 col-form-label">Login :</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="form_login" placeholder="Login" value="{$login}" name="login" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="form_prenom" >Prénom</label>
+                        <input type="text" class="form-control" id="form_prenom" placeholder="" name="prenom" required>
                     </div>
-                    
-                   <div class="form-group row">
-                        <label for="form_login" class="col-sm-2 col-form-label">Email :</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="form_login" placeholder="Email" value="{$email}" name="email">
-                        </div>
+                    <div class="form-group">
+                        <label for="form_login" >Login</label>
+                        <input type="text" class="form-control" id="form_login" placeholder="" name="login" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_pass" >Mot de passe</label>
+                        <input type="password" class="form-control" id="form_pass" placeholder="" name="pass" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_mail" >Adresse mail</label>
+                        <input type="text" class="form-control" id="form_mail" placeholder="" name="mail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_sexe" >Sexe</label>
+                        <select class="form-control" id="form_sexe" name="sexe">
+                            <option value=""></option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_naissance" >Date de naissance</label>
+                        <input type="date" class="form-control" id="form_naissance" placeholder="" name="naissance" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_adresse" >Adresse</label>
+                        <input type="text" class="form-control" id="form_adresse" placeholder="" name="adresse" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_postal" >Code postal</label>
+                        <input type="text" class="form-control" id="form_postal" placeholder="" name="postal" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_ville" >Ville</label>
+                        <input type="text" class="form-control" id="form_ville" placeholder="" name="ville" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_tel" >Téléphone</label>
+                        <input type="text" class="form-control" id="form_tel" placeholder="" name="tel" required>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Enregistrer mes informations</button>
+                        <button type="submit" class="btn btn-primary text-center">Enregistrer le compte</button>
                     </div>
                 </form> 
             </div>
@@ -334,47 +398,15 @@ class VueCompte
         $url_affichageHome = $this->container->router->pathFor("racine");
         $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
         $url_inscription = $this->container->router->pathFor("inscription");
-        $html = <<<FIN
-    <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Projet Web Licence Informatique</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-        <header>
-            <h1 class="site-heading text-center text-faded d-none d-lg-block">
-                <span class="site-heading-upper text-primary mb-3">WEB Project</span>
-                <span class="site-heading-lower">Web Bar & Co</span>
-            </h1>
-        </header>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>           
-FIN;
+        $url_compte = $this->container->router->pathFor("afficherCompte");
+
+        $content = "";
+
 
         if (isset($_SESSION['profile']['username'])){
             // l'utilisateur est connecté
-            $html .= <<<FIN
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">Connecté</a></li>
+            $connecteOuNon = <<<FIN
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_compte">Mon Compte</a></li>
                     </ul>
                 </div>
             </div>
@@ -382,7 +414,7 @@ FIN;
 FIN;
         }else{
             // l'utilisateur n'est pas connecté
-            $html .= <<<FIN
+            $connecteOuNon = <<<FIN
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_inscription">Connexion</a></li>
                     </ul>
                 </div>
@@ -394,36 +426,34 @@ FIN;
             //connexion echec: message d'erreur + réaffichage du formulaire de connexion
             case 0 :
             {
-                $html .= "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Mot de passe incorrect !</div>";
+                $content .= "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Mot de passe incorrect !</div>";
             }
             //connexion: formulaire de connexion
             case 1 :
             {
-                $html .= $this->formConnexion();
+                $content .= $this->formConnexion();
                 break;
             }
             // inscription echec: message d'erreur + réaffichage du formulaire d'inscription
             case 2 :
             {
-                $html .= "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de l'inscription ! Ce login existe déjà</div>";
+                $content .= "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de l'inscription ! Ce login existe déjà</div>";
             }
             //inscription: formulaire d'inscription
             case 3 :
             {
-                $html .= $this->formInscription();
+                $content .= $this->formInscription();
                 break;
             }
             //accès au compte apres inscription
             case 4 :
             {
-                $html .= "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Inscription réussie ! Login <b> {$this->tab['login']} </b> enregistré</div>";
+                $content .= "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Inscription réussie ! Login <b> {$this->tab['login']} </b> enregistré</div>";
             }
             //accès au compte apres connexion
             case 5 :
             {
-                $content = 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
-                $current_page = "Espace personnel";
                 break;
             }
             // modification des info du compte
@@ -432,7 +462,6 @@ FIN;
                 $path = "../";
                 $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
                 $content = $this->modifierInformations();
-                $current_page = "Modifier mon compte";
                 break;
             }
             // modification succes
@@ -441,7 +470,6 @@ FIN;
                 $content = "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Modifications enregistrées !</div>";
                 $content .= 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
-                $current_page = "Espace personnel";
                 break;
             }
             // modification echec login
@@ -450,7 +478,6 @@ FIN;
                 $content = "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de la modification ! Le login existe déjà</div>";
                 $content .= 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
-                $current_page = "Espace personnel";
                 break;
             }
             // modication echec email
@@ -459,7 +486,6 @@ FIN;
                 $content = "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de la modification ! L'email existe déjà</div>";
                 $content .= 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
-                $current_page = "Espace personnel";
                 break;
             }
             // modification mot de passe
@@ -492,6 +518,44 @@ FIN;
                 break;
             }
         }
+        $html = <<<FIN
+    <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Projet Web Licence Informatique</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="$path../css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">WEB Project</span>
+                <span class="site-heading-lower">Web Bar & Co</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>           
+FIN;
+        $html .= $connecteOuNon;
+        $html .= $content;
         $html .= <<<FIN
     </body>
     </html>

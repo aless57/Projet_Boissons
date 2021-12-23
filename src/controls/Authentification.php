@@ -68,7 +68,7 @@ class Authentification {
         $_SESSION = [];
         session_start();
         setcookie("user_id", $login, time() + 60*60*24*30, "/" );
-        $_SESSION['profile'] = array('username' => Utilisateur::where('login','=',$login)->first()->login, 'userid' => $uid);
+        $_SESSION['profile'] = array('username' => Utilisateur::where('login','=',$login)->first()->login, 'userid' => $login);
     }
 
     public static function checkAccessRights($required) {

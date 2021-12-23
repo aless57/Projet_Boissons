@@ -32,5 +32,11 @@ $app->get('/inscription/', ControleurCompte::class.':inscription')->setName('ins
 $app->post('/inscription', ControleurCompte::class.':enregistrerInscription')->setName('enregistrerInscription');
 $app->get('/connexion/', ControleurCompte::class.':connexion')->setName('connexion');
 $app->post('/connexion', ControleurCompte::class.':testConnexion')->setName('testConnexion');
+$app->get('/compte/', ControleurCompte::class.':afficherCompte')->setName('afficherCompte');
+$app->get('/compte/modifier/', ControleurCompte::class.':modifierCompte')->setName('modifierCompte');
+$app->get('/compte/changePassword/', ControleurCompte::class.':changerMotDePasse')->setName('changerMotDePasse');
+$app->get('/supprimerCompte/', ControleurCompte::class.':supprimerCompte')->setName('supprimerCompte');
+$app->post('/', ControleurCompte::class.':enregistrerModif')->setName('enregistrerModif');
+
 
 $app->run();

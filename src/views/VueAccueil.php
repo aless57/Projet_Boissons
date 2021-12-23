@@ -201,14 +201,14 @@ FIN;
             $url_affichageHome = $this->container->router->pathFor("racine");
             $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
             $url_inscription = $this->container->router->pathFor("inscription");
-            $url_deconnexion = $this->container->router->pathFor("deconnexion");
+            $url_compte = $this->container->router->pathFor("afficherCompte");
 
             $connexion = "";
             $content = "";
             if (isset($_SESSION['profile']['username'])){
                 // l'utilisateur est connecté
                 $connexion .= <<<FIN
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_deconnexion">Deconnexion</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_compte">Mon compte</a></li>
                     </ul>
                 </div>
             </div>
