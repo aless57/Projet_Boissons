@@ -63,7 +63,7 @@ class ControleurCompte
             Authentification::createUser($nom, $prenom,$login, $pass, $sexe, $mail, $naissance, $adresse, $postal,$ville, $tel);
             Authentification::authenticate($login, $pass);
             $_SESSION['inscriptionOK'] = true;
-            $url_accueil = $this->container->router->pathFor("racine");
+            $url_accueil = $this->container->router->pathFor("afficherCompte");
             return $rs->withRedirect($url_accueil);
         }
         catch (Exception $e) {
@@ -83,10 +83,10 @@ class ControleurCompte
     public function connexion(Request $rq, Response $rs, $args) : Response {
         if (isset($_SESSION['connexionOK'])){
             if(!$_SESSION['connexionOK']){
-                $vue = new VueCompte([] , array($this->container)) ;
-                $rs->getBody()->write( $vue->render(0));
                 session_destroy();
                 $_SESSION = [];
+                $vue = new VueCompte([] , $this->container) ;
+                $rs->getBody()->write( $vue->render(0));
                 return $rs;
             }
             //autre cas (avec les inscriptions)
@@ -180,12 +180,12 @@ class ControleurCompte
      * @return Response
      */
     public function enregistrerMotDePasse(Request $rq, Response $rs, $args) : Response {
-        $infosUser = User::where('login','=',$_SESSION['profile']['username'])->first();
+        $infosUser = Utilisateur::where('login','=',$_SESSION['profile']['username'])->first();
         $post = $rq->getParsedBody();
         $ancienMDP = filter_var($post['ancienMDP'], FILTER_SANITIZE_STRING);
         $nouveauMDP = filter_var($post['nouveauMDP'], FILTER_SANITIZE_STRING);
         $confirmerMDP = filter_var($post['confirmerMDP'], FILTER_SANITIZE_STRING);
-        $mdpOK = Authentication::authenticate($_SESSION['profile']['username'], $ancienMDP);
+        $mdpOK = Authentification::authenticate($_SESSION['profile']['username'], $ancienMDP);
 
         if (!$mdpOK) {
             $vue = new VueCompte( $infosUser->toArray() , $this->container ) ;
@@ -200,7 +200,7 @@ class ControleurCompte
                 return $rs;
             }
             else {
-                $infosUser->pass = password_hash($nouveauMDP, PASSWORD_DEFAULT);
+                $infosUser->mdp = password_hash($nouveauMDP, PASSWORD_DEFAULT);
                 $infosUser->save();
                 $_SESSION['passwordOK'] = true;
                 $url_enregisterModif = $this->container->router->pathFor('enregistrerModif');
@@ -219,14 +219,12 @@ class ControleurCompte
      * @return Response
      */
     public function enregistrerModif(Request $rq, Response $rs, $args) : Response {
-        $infoUser = User::where("id","=",$_SESSION['profile']['userid'])->first();
+        $infoUser = Utilisateur::where("login","=",$_SESSION['profile']['username'])->first();
         $post = $rq->getParsedBody();
         $nouveauLogin = filter_var($post['login'], FILTER_SANITIZE_STRING);
-        $nbNouveauLogin = User::where("login","=",$nouveauLogin)->count();
+        $nbNouveauLogin = Utilisateur::where("login","=",$nouveauLogin)->count();
         $nouveauEmail = filter_var($post['mail']);
-        $nbNouveauEmail = User::where("mail","=",$nouveauEmail)->count();
-        $nouveauNom = filter_var($post['nom'], FILTER_SANITIZE_STRING);
-        $nouveauPrenom = filter_var($post['prenom'], FILTER_SANITIZE_STRING);
+        $nbNouveauEmail = Utilisateur::where("mail","=",$nouveauEmail)->count();
         if ($nbNouveauLogin > 0 && $nouveauLogin != $infoUser->login) {
             $vue = new VueCompte($infoUser->toArray(), $this->container);
             $rs->getBody()->write($vue->render(8));
@@ -238,10 +236,16 @@ class ControleurCompte
             return $rs;
         }
         else {
-            $infoUser->nom = $nouveauNom;
-            $infoUser->prenom = $nouveauPrenom;
-            $infoUser->login = $nouveauLogin;
-            $infoUser->email = $nouveauEmail;
+            $infoUser->nom = filter_var($post['nom'], FILTER_SANITIZE_STRING);
+            $infoUser->prenom = filter_var($post['prenom'], FILTER_SANITIZE_STRING);
+            $infoUser->login = filter_var($post['login'], FILTER_SANITIZE_STRING);
+            $infoUser->mail = filter_var($post['mail'], FILTER_SANITIZE_STRING);
+            $infoUser->mail = filter_var($post['sexe'], FILTER_SANITIZE_STRING);
+            $infoUser->mail = filter_var($post['naissance'], FILTER_SANITIZE_STRING);;
+            $infoUser->mail = filter_var($post['adresse'], FILTER_SANITIZE_STRING);;
+            $infoUser->mail = filter_var($post['postal'], FILTER_SANITIZE_STRING);;
+            $infoUser->mail = filter_var($post['ville'], FILTER_SANITIZE_STRING);;
+            $infoUser->mail = filter_var($post['tel'], FILTER_SANITIZE_STRING);;
             $infoUser->save();
             $vue = new VueCompte( $infoUser->toArray(), $this->container ) ;
             $_SESSION['profile']['username'] = $nouveauLogin;
@@ -280,6 +284,8 @@ class ControleurCompte
         return $rs;
     }
 
+
+
     /**
      * GET
      * Deconnexion du compte
@@ -305,30 +311,7 @@ class ControleurCompte
      */
     public function supprimerCompte(Request $rq, Response $rs, $args) : Response {
         session_destroy();
-        $listes = Liste::where('user_id','=',$_SESSION['profile']['userid'])->get();
-        foreach ($listes as $liste) {
-            $date = date('Y-m-d',strtotime($liste['expiration']));
-            if ($this->today < $date) {
-                $listeASupprimer = Liste::find($liste['no']);
-                $items = Item::where('liste_id','=',$liste['no'])->get();
-                foreach ($items as $item) {
-                    $itemASupprimer = Item::find($item['id']);
-                    $messages = Message::where('id_parent','=',$item['id'])->where('type_parent','=','item')->get();
-                    foreach ($messages as $message) {
-                        $messageASupprimer = Message::find($message['id_message']);
-                        $messageASupprimer->delete();
-                    }
-                    $itemASupprimer->delete();
-                }
-                $messages = Message::where('id_parent','=',$liste['no'])->where('type_parent','=','liste')->get();
-                foreach ($messages as $message) {
-                    $messageASupprimer = Message::find($message['id_message']);
-                    $messageASupprimer->delete();
-                }
-                $listeASupprimer->delete();
-            }
-        }
-        $user = User::find($_SESSION['profile']['userid']);
+        $user = Utilisateur::find($_SESSION['profile']['userid']);
         $user->delete();
         setcookie("user_id", '-1', time() + 60*60*24*30, "/" );
         session_destroy();

@@ -254,7 +254,7 @@ FIN;
         $url_affichageHome = $this->container->router->pathFor("racine");
         $url_affichageAliment = $this->container->router->pathFor("afficherInformation", ['element' => 'Aliment']);
         $url_recherche = $this->container->router->pathFor("recherche");
-        $url_inscription = $this->container->router->pathFor("inscription");
+        $url_connexion = $this->container->router->pathFor("connexion");
         $url_compte = $this->container->router->pathFor("afficherCompte");
 
         $connexion = "";
@@ -271,7 +271,7 @@ FIN;
         } else {
             // l'utilisateur n'est pas connecté
             $connexion .= <<<FIN
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_inscription">Connexion</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_connexion">Connexion</a></li>
                     </ul>
                 </div>
             </div>

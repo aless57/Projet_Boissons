@@ -31,9 +31,7 @@ class ControleurAccueil {
      * @return Response
      */
     public function accueil(Request $rq, Response $rs, $args) : Response {
-        include('Donnees.inc.php');
-        $arrayHierarchie = array($Hierarchie, $Hierarchie['Hierarchie']);
-        $vue = new VueAccueil($arrayHierarchie, $this->container);
+        $vue = new VueAccueil([], $this->container);
         $rs->getBody()->write($vue->render(0));
         return $rs;
     }

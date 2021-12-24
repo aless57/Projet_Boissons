@@ -165,8 +165,6 @@ class VueCompte
         $codePostal = $this->tab['postal'];
         $ville = $this->tab['ville'];
         $telephone = $this->tab['tel'];
-        $supprimer = "<button type=\"button\" class=\"btn btn-secondary\" data-toggle=\"modal\" data-target=\"#confirmationSupp_{$login}\"><span class=\"fa fa-trash fa-lg\"></span> Supprimer le compte</button>";
-//        $email = "Pas encore d'email enregistré";
         $html = <<<FIN
             <div class="about-heading-content">
                     <div class="row">
@@ -243,34 +241,15 @@ class VueCompte
                     </div>
                     <br>
                     <div class="text-center deconnexion">
-            <a href='$url_deconnexion' class="btn btn-danger text-center">Déconnexion</a> 
-            $supprimer
+            <a href='$url_deconnexion' class="btn btn-danger text-center">Déconnexion</a>  
+            <a href='$url_supprimerCompte' class="btn btn-dark text-center"> Suppression </a>
         </div>
+                
                 </form> 
                 </div>
                 </div>
                 </div>
                 </div>
-        
-        <div class="modal fade" id="confirmationSupp_{$login}" tabindex="-1" role="dialog" aria-labelledby="confirmation" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="confirmation">Etes-vous sûr de vouloir supprimer ce compte ?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body text-center">
-                                Login : {$login}
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                <a type="button" href="$url_supprimerCompte" class="btn btn-danger">Supprimer</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div> 
         
         FIN;
         return $html;
@@ -286,37 +265,42 @@ class VueCompte
         $nom = $this->tab['nom'];
         $prenom = $this->tab['prenom'];
         $login = $this->tab['login'];
-        $email = $this->tab['mail'];
+        $mail = $this->tab['mail'];
+        $sexe = $this->tab['sexe'];
+        $dateDeNaissance = $this->tab['naissance'];
+        $adresse = $this->tab['adresse'];
+        $codePostal = $this->tab['postal'];
+        $ville = $this->tab['ville'];
+        $telephone = $this->tab['tel'];
         $html = <<<FIN
-        <div class="card card_form">
-            <div class="card-header text-center">
+        
+        <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+            <h3 class=" text-center">
                 Modifiez vos informations !
-            </div>
-            <div class="card-body">
+            </h3>
                 <form method="POST" action="$url_enregistrerModif">
                     <div class="form-group">
                         <label for="form_nom" >Nom</label>
-                        <input type="text" class="form-control" id="form_nom" placeholder="" name="nom" required>
+                        <input type="text" class="form-control" id="form_nom" placeholder="$nom" name="nom" required>
                     </div>
                     <div class="form-group">
                         <label for="form_prenom" >Prénom</label>
-                        <input type="text" class="form-control" id="form_prenom" placeholder="" name="prenom" required>
+                        <input type="text" class="form-control" id="form_prenom" placeholder="$prenom" name="prenom" required>
                     </div>
                     <div class="form-group">
                         <label for="form_login" >Login</label>
-                        <input type="text" class="form-control" id="form_login" placeholder="" name="login" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="form_pass" >Mot de passe</label>
-                        <input type="password" class="form-control" id="form_pass" placeholder="" name="pass" required>
+                        <input type="text" class="form-control" id="form_login" placeholder="$login" name="login" required>
                     </div>
                     <div class="form-group">
                         <label for="form_mail" >Adresse mail</label>
-                        <input type="text" class="form-control" id="form_mail" placeholder="" name="mail" required>
+                        <input type="text" class="form-control" id="form_mail" placeholder="$mail" name="mail" required>
                     </div>
                     <div class="form-group">
                         <label for="form_sexe" >Sexe</label>
-                        <select class="form-control" id="form_sexe" name="sexe">
+                        <select class="form-control" id="form_sexe" name="sexe" >
                             <option value=""></option>
                             <option value="Homme">Homme</option>
                             <option value="Femme">Femme</option>
@@ -324,30 +308,34 @@ class VueCompte
                     </div>
                     <div class="form-group">
                         <label for="form_naissance" >Date de naissance</label>
-                        <input type="date" class="form-control" id="form_naissance" placeholder="" name="naissance" required>
+                        <input type="date" class="form-control" id="form_naissance" placeholder="$dateDeNaissance" name="naissance" required>
                     </div>
                     <div class="form-group">
                         <label for="form_adresse" >Adresse</label>
-                        <input type="text" class="form-control" id="form_adresse" placeholder="" name="adresse" required>
+                        <input type="text" class="form-control" id="form_adresse" placeholder="$adresse" name="adresse" required>
                     </div>
                     <div class="form-group">
                         <label for="form_postal" >Code postal</label>
-                        <input type="text" class="form-control" id="form_postal" placeholder="" name="postal" required>
+                        <input type="text" class="form-control" id="form_postal" placeholder="$codePostal" name="postal" required>
                     </div>
                     <div class="form-group">
                         <label for="form_ville" >Ville</label>
-                        <input type="text" class="form-control" id="form_ville" placeholder="" name="ville" required>
+                        <input type="text" class="form-control" id="form_ville" placeholder="$ville" name="ville" required>
                     </div>
                     <div class="form-group">
                         <label for="form_tel" >Téléphone</label>
-                        <input type="text" class="form-control" id="form_tel" placeholder="" name="tel" required>
+                        <input type="text" class="form-control" id="form_tel" placeholder="$telephone" name="tel" required>
                     </div>
+                    <br>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary text-center">Enregistrer le compte</button>
                     </div>
                 </form> 
-            </div>
-        </div>   
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
         
         FIN;
         return $html;
@@ -360,10 +348,13 @@ class VueCompte
     public function changerMotDePasse() :string{
         $url_enregistrerMdp = $this->container->router->pathFor( 'enregistrerMotDePasse' ) ;
         $html = <<<FIN
-        <div class="card card_form">
-            <div class="card-header text-center">
+        <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+            <h4 class=" text-center">
                 Modifiez votre mot de passe
-            </div>
+            </h4>
             <div class="card-body">
                 <form method="POST" action="$url_enregistrerMdp">
                     <div class="form-group">
@@ -383,6 +374,8 @@ class VueCompte
                     </div>
                 </form> 
             </div>
+            </div>
+            </div>
         </div>   
         FIN;
         return $html;
@@ -396,8 +389,8 @@ class VueCompte
     public function render( int $select ) : string
     {
         $url_affichageHome = $this->container->router->pathFor("racine");
-        $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Hierarchie']);
-        $url_inscription = $this->container->router->pathFor("inscription");
+        $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
+        $url_connexion = $this->container->router->pathFor("connexion");
         $url_compte = $this->container->router->pathFor("afficherCompte");
 
         $content = "";
@@ -415,7 +408,7 @@ FIN;
         }else{
             // l'utilisateur n'est pas connecté
             $connecteOuNon = <<<FIN
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_inscription">Connexion</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_connexion">Connexion</a></li>
                     </ul>
                 </div>
             </div>
@@ -431,6 +424,7 @@ FIN;
             //connexion: formulaire de connexion
             case 1 :
             {
+                $path = "..";
                 $content .= $this->formConnexion();
                 break;
             }
@@ -442,6 +436,7 @@ FIN;
             //inscription: formulaire d'inscription
             case 3 :
             {
+                $path = "..";
                 $content .= $this->formInscription();
                 break;
             }
@@ -453,13 +448,14 @@ FIN;
             //accès au compte apres connexion
             case 5 :
             {
+                $path = "..";
                 $content .= $this->afficherInformations();
                 break;
             }
             // modification des info du compte
             case 6 :
             {
-                $path = "../";
+                $path = "../..";
                 $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
                 $content = $this->modifierInformations();
                 break;
@@ -467,50 +463,46 @@ FIN;
             // modification succes
             case 7 :
             {
+                $path = "..";
                 $content = "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Modifications enregistrées !</div>";
-                $content .= 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
                 break;
             }
             // modification echec login
             case 8 :
             {
+                $path = "..";
                 $content = "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de la modification ! Le login existe déjà</div>";
-                $content .= 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
                 break;
             }
             // modication echec email
             case 9 :
             {
+                $path = "..";
                 $content = "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> Echec de la modification ! L'email existe déjà</div>";
-                $content .= 'Bienvenue dans votre espace personnel, <b>' . $this->tab['prenom'] . '.</b>';
                 $content .= $this->afficherInformations();
                 break;
             }
             // modification mot de passe
             case 10 :
             {
-                $path = "../";
-                $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
+                $path = "../..";
                 $content .= $this->changerMotDePasse();
-                $current_page = "Modifier mon mot de passe";
                 break;
             }
             // modification mot de passe echec ancienMDP incorrect
             case 11 :
             {
-                $path = "../";
-                $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
+                $path = "..";
                 $content.= "<div class=\"alert alert-danger\" role=\"alert\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i> L'ancien mot de passe est incorrect !</div>";
                 $content .= $this->changerMotDePasse();
-                $current_page = "Modifier mon mot de passe";
                 break;
             }
             // modification mot de passe echec confirmationMDP différent nouveauMDP
             case 12 :
             {
-                $path = "../";
+                $path = "..";
                 $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
                 $content = "<div class=\"alert alert-danger\" role=\"alert\"<i class=\"fa fa-times\" aria-hidden=\"true\"></i> >Les deux mots de passe sont différents !</div>";
                 $content .= $this->changerMotDePasse();
@@ -534,7 +526,7 @@ FIN;
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="$path../css/styles.css" rel="stylesheet" />
+        <link href="$path/css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <header>

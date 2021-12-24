@@ -28,6 +28,7 @@ $app->get('/deconnexion/',ControleurCompte::class.':deconnexion')->setName('deco
 $app->get('/recherche/',ControleurAccueil::class.':recherche')->setName('recherche');
 
 
+
 //Chemin Compte
 $app->get('/inscription/', ControleurCompte::class.':inscription')->setName('inscription');
 $app->post('/inscription', ControleurCompte::class.':enregistrerInscription')->setName('enregistrerInscription');
@@ -37,7 +38,8 @@ $app->get('/compte/', ControleurCompte::class.':afficherCompte')->setName('affic
 $app->get('/compte/modifier/', ControleurCompte::class.':modifierCompte')->setName('modifierCompte');
 $app->get('/compte/changePassword/', ControleurCompte::class.':changerMotDePasse')->setName('changerMotDePasse');
 $app->get('/supprimerCompte/', ControleurCompte::class.':supprimerCompte')->setName('supprimerCompte');
-$app->post('/', ControleurCompte::class.':enregistrerModif')->setName('enregistrerModif');
+$app->post('/compte/', ControleurCompte::class.':enregistrerModif')->setName('enregistrerModif');
+$app->post('/compte/changePassword', ControleurCompte::class.':enregistrerMotDePasse')->setName('enregistrerMotDePasse');
 
 
 $app->run();
