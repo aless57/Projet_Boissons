@@ -2,6 +2,7 @@
 
 namespace boissons\controls;
 use boissons\models\Hierarchie;
+use boissons\models\SousCategorie;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class RechercheAliment
@@ -17,5 +18,9 @@ class RechercheAliment
 
     public static function getListAliment($aliment){
         return Hierarchie::where('nom','LIKE',$aliment.'%')->get()->toArray();
+    }
+
+    public static function getListSC($aliment){
+        return SousCategorie::where('nomH','LIKE',$aliment.'%')->get()->toArray();
     }
 }

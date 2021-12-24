@@ -252,7 +252,7 @@ FIN;
     public function render(int $select)
     {
         $url_affichageHome = $this->container->router->pathFor("racine");
-        $url_affichageAliment = $this->container->router->pathFor("afficherInformation", ['element' => 'Hierarchie']);
+        $url_affichageAliment = $this->container->router->pathFor("afficherInformation", ['element' => 'Aliment']);
         $url_recherche = $this->container->router->pathFor("recherche");
         $url_inscription = $this->container->router->pathFor("inscription");
         $url_compte = $this->container->router->pathFor("afficherCompte");

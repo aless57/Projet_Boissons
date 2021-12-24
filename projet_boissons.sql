@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 23 déc. 2021 à 17:58
+-- Généré le : ven. 24 déc. 2021 à 01:32
 -- Version du serveur :  10.4.18-MariaDB
 -- Version de PHP : 8.0.3
 
@@ -85,6 +85,7 @@ CREATE TABLE `recettes` (
 --
 
 CREATE TABLE `sous-categorie` (
+  `idSous` int(10) NOT NULL,
   `nomH` varchar(30) NOT NULL,
   `nomSC` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -96,6 +97,7 @@ CREATE TABLE `sous-categorie` (
 --
 
 CREATE TABLE `super-categorie` (
+  `idSup` int(10) NOT NULL,
   `nomH` varchar(30) NOT NULL,
   `nomSC` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -158,13 +160,13 @@ ALTER TABLE `recettes`
 -- Index pour la table `sous-categorie`
 --
 ALTER TABLE `sous-categorie`
-  ADD PRIMARY KEY (`nomH`,`nomSC`);
+  ADD PRIMARY KEY (`idSous`);
 
 --
 -- Index pour la table `super-categorie`
 --
 ALTER TABLE `super-categorie`
-  ADD PRIMARY KEY (`nomH`,`nomSC`);
+  ADD PRIMARY KEY (`idSup`);
 
 --
 -- Index pour la table `utilisateur`
@@ -193,6 +195,18 @@ ALTER TABLE `panier`
 --
 ALTER TABLE `recettes`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `sous-categorie`
+--
+ALTER TABLE `sous-categorie`
+  MODIFY `idSous` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `super-categorie`
+--
+ALTER TABLE `super-categorie`
+  MODIFY `idSup` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
