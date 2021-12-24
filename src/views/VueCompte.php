@@ -402,7 +402,7 @@ class VueCompte
             $html .= "<div class='form-group row'>";
             $html .= "<div class='col-sm flex-row'><p>" .  $panier['titre']. "</p> </div>";
             $url_suppression = $this->container->router->pathFor( 'supprimerPanier', ['id' => $panier['id']] );
-            $html .= "<div class='col-sm-4'><a href='' class='btn btn-dark text-center'> Suppression </a></div>";
+            $html .= "<div class='col-sm-4'><a href='$url_suppression' class='btn btn-dark text-center'> Suppression </a></div>";
             $html .= "</div>";
         }
         $html .= <<<FIN
@@ -541,19 +541,7 @@ FIN;
             // Ajout element panier
             case 13 :
             {
-                $content .= "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Ajout de l'ingredient reussi ! </div>";
-            }
-            // Afficher panier
-            case 14 :
-            {
                 $path = "../..";
-                $content .= $this->afficherPanier();
-                break;
-            }
-            case 15 :
-            {
-                $content .= "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Suppression reussie ! </div>";
-                $path = "../../..";
                 $content .= $this->afficherPanier();
                 break;
             }

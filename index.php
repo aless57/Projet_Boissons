@@ -41,8 +41,8 @@ $app->get('/supprimerCompte/', ControleurCompte::class.':supprimerCompte')->setN
 $app->post('/compte/', ControleurCompte::class.':enregistrerModif')->setName('enregistrerModif');
 $app->post('/compte/changePassword', ControleurCompte::class.':enregistrerMotDePasse')->setName('enregistrerMotDePasse');
 $app->get('/compte/panier/',ControleurCompte::class.':afficherPanier')->setName('afficherPanier');
-$app->post('/compte/panier',ControleurCompte::class.':ajoutAuPanier')->setName('ajoutAuPanier');
-$app->post('/compte/panier/',ControleurCompte::class.':supprimerPanier')->setName('supprimerPanier');
+$app->get('/ajouterElementPanier/{recette}&{login}',ControleurCompte::class.':ajoutAuPanier')->setName('ajoutAuPanier');
+$app->get('/supprimerElementPanier/{id}',ControleurCompte::class.':supprimerPanier')->setName('supprimerPanier');
 
 
 $app->run();

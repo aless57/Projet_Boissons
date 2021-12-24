@@ -303,7 +303,7 @@ class ControleurCompte
     }
 
     /**
-     * GET
+     * POST
      * Suppression du compte
      * @param Request $rq
      * @param Response $rs
@@ -318,7 +318,6 @@ class ControleurCompte
         session_destroy();
         $_SESSION = [];
         $url_accueil = $this->container->router->pathFor('racine');
-        $vue = new VueCompte( [], $this->container);
         return $rs->withRedirect($url_accueil);
     }
 
@@ -337,7 +336,7 @@ class ControleurCompte
             array_push($panier,Recette::where('id','=',$recette['id'])->first()->toArray());
         }
         $vue = new VueCompte(array($panier), $this->container);
-        $rs->getBody()->write($vue->render(14));
+        $rs->getBody()->write($vue->render(13));
         return $rs;
     }
 
@@ -353,16 +352,14 @@ class ControleurCompte
     public function ajoutAuPanier(Request $rq, Response $rs, $args) : Response {
         $recette = $args['recette'];
         $login = $args['login'];
-
         $id = Recette::where('titre','=',"$recette")->first()->id;
         $panier = new Panier();
         $panier->id = $id;
         $panier->login = $login;
         $panier->save();
 
-        $vue = new VueCompte([], $this->container);
-        $rs->getBody()->write($vue->render(13));
-        return $rs;
+        $url_accueil = $this->container->router->pathFor('afficherPanier');
+        return $rs->withRedirect($url_accueil);
     }
 
     /**
@@ -376,11 +373,9 @@ class ControleurCompte
     public function supprimerPanier(Request $rq, Response $rs, $args) : Response {
 
         $id = $args['id'];
-        $panier = Panier::find($id);
+        $panier = Panier::find($id)->first();
         $panier->delete();
-
-        $vue = new VueCompte([], $this->container);
-        $rs->getBody()->write($vue->render(15));
-        return $rs;
+        $url_accueil = $this->container->router->pathFor('afficherPanier');
+        return $rs->withRedirect($url_accueil);
     }
 }
