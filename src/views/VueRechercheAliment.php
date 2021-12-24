@@ -1,5 +1,13 @@
 <?php
 
+
+/*
+ * SELECT idRecette FROM `index`
+WHERE idRecette IN (select idRecette from `index` where nom like 'Malibu')
+AND idRecette IN (select idRecette from `index` where nom like 'Cerise')
+GROUP BY idRecette;
+ */
+
 require '../../vendor/autoload.php';
 use boissons\controls\RechercheAliment;
 
@@ -11,13 +19,17 @@ if(isset($_GET['nom'])){
     $listealim = RechercheAliment::getListAliment($aliment);
     foreach($listealim as $a){
         if(!in_array($a['nom'], $afficher, true)) {
-            echo "<div>" . $a['nom'] . "</div>";
+            echo
+                "<div>" . $a['nom'] . "
+                </div>";
             array_push($afficher, $a['nom']);
         }
         $listesc = RechercheAliment::getListSC($a['nom']);
         foreach ($listesc as $s){
             if(!in_array($s['nomSC'], $afficher, true)) {
-                echo "<div>".$s['nomSC']."</div>";
+                echo
+                    "<div>".$s['nomSC']."
+                    </div>";
                 array_push($afficher, $s['nomSC']);
             }
         }
