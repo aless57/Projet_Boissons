@@ -2,12 +2,14 @@
 
 namespace boissons\controls;
 
+use boissons\controls\Authentification;
 use boissons\models\Utilisateur;
 use boissons\views\VueAccueil;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use boissons\views\VueCompte;
-use boissons\controls\Authentification;
+use boissons\models\Panier;
+use boissons\models\Recette;
 
 class ControleurCompte
 {
@@ -58,17 +60,16 @@ class ControleurCompte
         $ville = filter_var($post['ville'], FILTER_SANITIZE_STRING);
         $tel = filter_var($post['tel'], FILTER_SANITIZE_STRING);
         $vue = new VueCompte( [ 'login' => $login ] , $this->container ) ;
-        try {
-            //redirection sur mon afficherCompte avec $_SESSION
-            Authentification::createUser($nom, $prenom,$login, $pass, $sexe, $mail, $naissance, $adresse, $postal,$ville, $tel);
+        if (Authentification::createUser($nom, $prenom,$login, $pass, $sexe, $mail, $naissance, $adresse, $postal,$ville, $tel)){
             Authentification::authenticate($login, $pass);
             $_SESSION['inscriptionOK'] = true;
             $url_accueil = $this->container->router->pathFor("afficherCompte");
             return $rs->withRedirect($url_accueil);
-        }
-        catch (Exception $e) {
+        }else{
             $rs->getBody()->write( $vue->render(2));
         }
+
+
         return $rs;
     }
 
@@ -319,6 +320,67 @@ class ControleurCompte
         $url_accueil = $this->container->router->pathFor('racine');
         $vue = new VueCompte( [], $this->container);
         return $rs->withRedirect($url_accueil);
+    }
 
+    /**
+     * GET
+     * Affichage du panier
+     * @param Request $rq
+     * @param Response $rs
+     * @param $args
+     * @return Response
+     */
+    public function afficherPanier(Request $rq, Response $rs, $args) : Response {
+        $recettes = Panier::where("login","=",$_SESSION['profile']['username'])->get()->toArray();
+        $panier = [];
+        foreach ($recettes as $recette){
+            array_push($panier,Recette::where('id','=',$recette['id'])->first()->toArray());
+        }
+        $vue = new VueCompte(array($panier), $this->container);
+        $rs->getBody()->write($vue->render(14));
+        return $rs;
+    }
+
+
+    /**
+     * POST
+     * Ajout element dans le panier
+     * @param Request $rq
+     * @param Response $rs
+     * @param $args
+     * @return Response
+     */
+    public function ajoutAuPanier(Request $rq, Response $rs, $args) : Response {
+        $recette = $args['recette'];
+        $login = $args['login'];
+
+        $id = Recette::where('titre','=',"$recette")->first()->id;
+        $panier = new Panier();
+        $panier->id = $id;
+        $panier->login = $login;
+        $panier->save();
+
+        $vue = new VueCompte([], $this->container);
+        $rs->getBody()->write($vue->render(13));
+        return $rs;
+    }
+
+    /**
+     * POST
+     * Suppression dans le panier
+     * @param Request $rq
+     * @param Response $rs
+     * @param $args
+     * @return Response
+     */
+    public function supprimerPanier(Request $rq, Response $rs, $args) : Response {
+
+        $id = $args['id'];
+        $panier = Panier::find($id);
+        $panier->delete();
+
+        $vue = new VueCompte([], $this->container);
+        $rs->getBody()->write($vue->render(15));
+        return $rs;
     }
 }

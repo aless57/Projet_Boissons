@@ -154,6 +154,7 @@ class VueCompte
         $url_changemdp = $this->container->router->pathFor('changerMotDePasse');
         $url_deconnexion = $this->container->router->pathFor('deconnexion');
         $url_supprimerCompte = $this->container->router->pathFor('supprimerCompte');
+        $url_afficherPanier = $this->container->router->pathFor('afficherPanier');
         $html = "";
         $nom = $this->tab['nom'];
         $prenom = $this->tab['prenom'];
@@ -241,9 +242,13 @@ class VueCompte
                     </div>
                     <br>
                     <div class="text-center deconnexion">
-            <a href='$url_deconnexion' class="btn btn-danger text-center">Déconnexion</a>  
-            <a href='$url_supprimerCompte' class="btn btn-dark text-center"> Suppression </a>
-        </div>
+                         <a href='$url_deconnexion' class="btn btn-danger text-center">Déconnexion</a>  
+                         <a href='$url_supprimerCompte' class="btn btn-dark text-center"> Suppression </a>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <a type="submit" class="btn btn-primary" href="$url_afficherPanier" role="button">Afficher panier</a>
+                    </div>
                 
                 </form> 
                 </div>
@@ -381,6 +386,31 @@ class VueCompte
         return $html;
     }
 
+    public function afficherPanier(){
+        $panierArray = $this->tab[0];
+        $html = <<<FIN
+            <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+            <h3 class=" text-center">
+                Panier
+            </h3>
+            FIN;
+        $html .= "<section class='recette'> ";
+        foreach ($panierArray as $panier){
+            $html .= "<div class='form-group row'>";
+            $html .= "<div class='col-sm flex-row'><p>" .  $panier['titre']. "</p> </div>";
+            $url_suppression = $this->container->router->pathFor( 'supprimerPanier', ['id' => $panier['id']] );
+            $html .= "<div class='col-sm-4'><a href='' class='btn btn-dark text-center'> Suppression </a></div>";
+            $html .= "</div>";
+        }
+        $html .= <<<FIN
+ </section> </div></div></div></div>
+FIN;
+        return $html;
+    }
+
     /**
      * RENDER
      * @param int $select
@@ -392,6 +422,7 @@ class VueCompte
         $url_affichageAliment =$this->container->router->pathFor("afficherInformation",['element' => 'Aliment']);
         $url_connexion = $this->container->router->pathFor("connexion");
         $url_compte = $this->container->router->pathFor("afficherCompte");
+        $url_recherche = $this->container->router->pathFor("recherche");
 
         $content = "";
 
@@ -503,10 +534,27 @@ FIN;
             case 12 :
             {
                 $path = "..";
-                $pathIntermediaire = "<li class=\"breadcrumb-item \" aria-current=\"page\"><a href=\"$url_compte\">Espace personnel</a></li>";
                 $content = "<div class=\"alert alert-danger\" role=\"alert\"<i class=\"fa fa-times\" aria-hidden=\"true\"></i> >Les deux mots de passe sont différents !</div>";
                 $content .= $this->changerMotDePasse();
-                $current_page = "Modifier mon mot de passe";
+                break;
+            }
+            // Ajout element panier
+            case 13 :
+            {
+                $content .= "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Ajout de l'ingredient reussi ! </div>";
+            }
+            // Afficher panier
+            case 14 :
+            {
+                $path = "../..";
+                $content .= $this->afficherPanier();
+                break;
+            }
+            case 15 :
+            {
+                $content .= "<div class=\"alert alert-success\" role=\"alert\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Suppression reussie ! </div>";
+                $path = "../../..";
+                $content .= $this->afficherPanier();
                 break;
             }
         }
@@ -544,7 +592,7 @@ FIN;
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>           
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_recherche">Recherche produit</a></li>           
 FIN;
         $html .= $connecteOuNon;
         $html .= $content;

@@ -33,8 +33,9 @@ class Authentification {
             $u->ville = $ville;
             $u->tel = $tel;
             $u->save();
+            return true;
         } else {
-            throw new \Exception();
+            return false;
         }
     }
 

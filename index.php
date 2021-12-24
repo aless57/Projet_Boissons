@@ -31,7 +31,7 @@ $app->get('/recherche/',ControleurAccueil::class.':recherche')->setName('recherc
 
 //Chemin Compte
 $app->get('/inscription/', ControleurCompte::class.':inscription')->setName('inscription');
-$app->post('/inscription', ControleurCompte::class.':enregistrerInscription')->setName('enregistrerInscription');
+$app->post('/inscription/', ControleurCompte::class.':enregistrerInscription')->setName('enregistrerInscription');
 $app->get('/connexion/', ControleurCompte::class.':connexion')->setName('connexion');
 $app->post('/connexion', ControleurCompte::class.':testConnexion')->setName('testConnexion');
 $app->get('/compte/', ControleurCompte::class.':afficherCompte')->setName('afficherCompte');
@@ -40,6 +40,9 @@ $app->get('/compte/changePassword/', ControleurCompte::class.':changerMotDePasse
 $app->get('/supprimerCompte/', ControleurCompte::class.':supprimerCompte')->setName('supprimerCompte');
 $app->post('/compte/', ControleurCompte::class.':enregistrerModif')->setName('enregistrerModif');
 $app->post('/compte/changePassword', ControleurCompte::class.':enregistrerMotDePasse')->setName('enregistrerMotDePasse');
+$app->get('/compte/panier/',ControleurCompte::class.':afficherPanier')->setName('afficherPanier');
+$app->post('/compte/panier',ControleurCompte::class.':ajoutAuPanier')->setName('ajoutAuPanier');
+$app->post('/compte/panier/',ControleurCompte::class.':supprimerPanier')->setName('supprimerPanier');
 
 
 $app->run();

@@ -120,6 +120,7 @@ FIN;
      */
     public function afficherRecette($recettes, $aliments)
     {
+
         $html = <<<FIN
                         <h2 class="section-heading mb-4">
                        
@@ -185,6 +186,15 @@ FIN;
                         $i++;
                         //$html .= "<tr></tr>";
                     }
+                if (isset($_SESSION['profile']['username'])){
+                    $url_ajoutAuPanier = $this->container->router->pathFor("ajoutAuPanier", ['recette' => $recette['index'],'login' => $_SESSION['profile']['username']]);
+                    $html .= <<<FIN
+                    <div class="text-center">
+                        <a href="$url_ajoutAuPanier" class="btn btn-primary">Ajouter au panier</a>
+                    </div>
+FIN;
+
+                }
                 }
                 $html .= "</section>";
             }
@@ -353,7 +363,7 @@ FIN;
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageHome">Home</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_affichageAliment">Listes des aliments</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_recherche">Products</a></li>           
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="$url_recherche">Recherche produit</a></li>           
 FIN;
 
         $html .= $connexion;
