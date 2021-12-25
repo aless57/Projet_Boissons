@@ -4,6 +4,7 @@
 namespace boissons\views;
 
 use boissons\controls\ControleurAccueil;
+use boissons\models\Recette;
 use function Symfony\Component\Translation\t;
 
 /**
@@ -211,13 +212,36 @@ FIN;
      */
     public function afficherRecherche()
     {
-        $elementsRecherche = "<p> Elements selectionne(s) :  ";
+        $elementsRecherche = "<p> Element selectionné :  ";
         if(isset($_SESSION['recherche'])){
             foreach ($_SESSION['recherche'] as $elementRecherche){
-                $elementsRecherche .=$elementRecherche . " / ";
+                $elementsRecherche .=$elementRecherche . " ";
             }
         }
         $elementsRecherche .= "</p>";
+        $htmlRecette = "<h4 class='text-center'> Recette(s) </h4>";
+        var_dump($_SESSION['recherche']);
+        if(isset($_SESSION['recherche'][0])){
+            $index = \boissons\models\Index::where("nom","LIKE",$_SESSION['recherche'][0])->get();
+            $i = 0;
+            foreach ($index as $unIndex){
+                echo($unIndex->idRecette . " / ");
+                $recettes = \boissons\models\Recette::where("id",'=',$unIndex->idRecette)->get();
+                $i++;
+                foreach ($recettes as $recette){
+
+                    $htmlRecette .= "<h7 class='text-center'> <strong>Recette $i </strong></h7><br>";
+
+                    //var_dump($recette);
+                    $htmlRecette .= "<h7 class='text-center'> Titre </h7>";
+                    $htmlRecette .= "<p>" . $recette->titre . "</p>";
+                    $htmlRecette .= "<h7 class='text-center'> Ingredient </h7>";
+                    $htmlRecette .= "<p>" . $recette->ingredients . "</p>";
+                    $htmlRecette .= "<h7 class='text-center'> Preparation </h7>";
+                    $htmlRecette .= "<p>" . $recette->preparation . "</p>";
+                }
+            }
+        }
         $html = <<<FIN
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -235,6 +259,7 @@ FIN;
                             <div style="margin-top: 20px">
                                 <div id="result-search">
                                 </div>
+                                $htmlRecette
                             </div>
                         </div>
                     </div>
@@ -265,6 +290,8 @@ FIN;
             });
         </script>
 FIN;
+
+
         return $html;
     }
 
