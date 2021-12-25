@@ -2,6 +2,9 @@
 
 namespace boissons\views;
 
+/**
+ * Classe VueCompte qui permet d'afficher le compte ou la creation du compte
+ */
 class VueCompte
 {
     private $tab;
@@ -22,6 +25,7 @@ class VueCompte
      * @return string
      */
     private function formInscription() : string {
+        $_SESSION['recherche'] = [];
         // fonction pour enregistrer le formulaire
         $url_enregistrerInscription = $this->container->router->pathFor( 'enregistrerInscription' ) ;
         // proposition de redirection vers une connexion si on possède deja un compte
@@ -106,6 +110,7 @@ class VueCompte
      * @return string
      */
     private function formConnexion() : string {
+        $_SESSION['recherche'] = [];
         // fonction pour envoyer le formulaire de connexion, et tester si id et mdp sont corrects
         $url_testConnexion = $this->container->router->pathFor( 'testConnexion' ) ;
         // redirection vers le formulaire d'inscription si on ne possède pas encore de compte
@@ -150,6 +155,7 @@ class VueCompte
      * @return string
      */
     public function afficherInformations() : string{
+        $_SESSION['recherche'] = [];
         $url_modifier = $this->container->router->pathFor('modifierCompte');
         $url_changemdp = $this->container->router->pathFor('changerMotDePasse');
         $url_deconnexion = $this->container->router->pathFor('deconnexion');
@@ -386,6 +392,10 @@ class VueCompte
         return $html;
     }
 
+    /**
+     * Fonction afficherPanier qui permet d'afficher le panier de l'utilisateur quand il est connecté
+     * @return string
+     */
     public function afficherPanier(){
         $panierArray = $this->tab[0];
         $html = <<<FIN

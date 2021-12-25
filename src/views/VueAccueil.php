@@ -35,6 +35,7 @@ class VueAccueil
      */
     public function afficherInformations($arrayHierarchie, $name)
     {
+        $_SESSION['recherche'] = [];
         $html = <<<FIN
             <div class="about-heading-content">
                     <div class="row">
@@ -120,6 +121,7 @@ FIN;
      */
     public function afficherRecette($recettes, $aliments)
     {
+        $_SESSION['recherche'] = [];
 
         $html = <<<FIN
                         <h2 class="section-heading mb-4">
@@ -203,8 +205,19 @@ FIN;
         return $html;
     }
 
+    /**
+     * Fonction afficherRecherche permet d'afficher la table de recherche des aliments
+     * @return string
+     */
     public function afficherRecherche()
     {
+        $elementsRecherche = "<p> Elements selectionne(s) :  ";
+        if(isset($_SESSION['recherche'])){
+            foreach ($_SESSION['recherche'] as $elementRecherche){
+                $elementsRecherche .=$elementRecherche . " / ";
+            }
+        }
+        $elementsRecherche .= "</p>";
         $html = <<<FIN
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -215,6 +228,7 @@ FIN;
                     <div class="col-xl-9 col-lg-10 mx-auto">
                         <div class="bg-faded rounded p-5">
                             <h1 style="text-align: center">Barre de recherche</h1>
+                            $elementsRecherche
                             <div class="form-group">
                               <input class="form-control" type="text" id="search-alim" value="" placeholder="Rechercher un aliment"/>
                             </div>
@@ -291,6 +305,7 @@ FIN;
         switch ($select) {
             //Home
             case 0:
+                $_SESSION['recherche'] = [];
                 $url = "";
 //                    $ensembleNom = array_keys($this->tab[0]);
 //                    $nomAliment = end($ensembleNom);

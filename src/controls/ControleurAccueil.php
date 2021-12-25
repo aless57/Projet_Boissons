@@ -36,6 +36,14 @@ class ControleurAccueil {
         return $rs;
     }
 
+    /**
+     * GET
+     * Affichage de la recherche
+     * @param Request $rq
+     * @param Response $rs
+     * @param $args
+     * @return Response
+     */
     public function recherche(Request $rq, Response $rs, $args) : Response {
         $vue = new VueAccueil([], $this->container);
         $rs->getBody()->write($vue->render(2));
@@ -43,6 +51,7 @@ class ControleurAccueil {
     }
 
     /**
+     * GET
      * Retourne les SuperAliments et les SousAliments des aliments en question
      * @param Request $rq
      * @param Response $rs

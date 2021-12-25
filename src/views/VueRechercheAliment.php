@@ -21,7 +21,8 @@ if(isset($_GET['nom'])){
         if(!in_array($a['nom'], $afficher, true)) {
             echo
                 "<div>" . $a['nom'] . "
-                </div>";
+                </div> 
+                <a href=' " . ajouterElementSessions($a['nom']) ."' > Ajouter Element A</a>";
             array_push($afficher, $a['nom']);
         }
         $listesc = RechercheAliment::getListSC($a['nom']);
@@ -29,10 +30,22 @@ if(isset($_GET['nom'])){
             if(!in_array($s['nomSC'], $afficher, true)) {
                 echo
                     "<div>".$s['nomSC']."
-                    </div>";
+                    </div> 
+                <a href=''" . ajouterElementSessions($a['nom'])."  > Ajouter Element B</a>";
                 array_push($afficher, $s['nomSC']);
             }
         }
     }
+}
+
+/**
+ * Fonction ajouterElementSessions qui permet d'ajouter un element de recherche a la variable de session
+ * @param $elementSession
+ */
+function ajouterElementSessions($elementSession){
+    if(!isset($_SESSION['recherche'])){
+        $_SESSION['recherche'][0] = array();
+    }
+    array_push($_SESSION['recherche'],$elementSession);
 }
 ?>

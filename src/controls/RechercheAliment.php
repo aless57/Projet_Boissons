@@ -5,6 +5,9 @@ use boissons\models\Hierarchie;
 use boissons\models\SousCategorie;
 use Illuminate\Database\Capsule\Manager as DB;
 
+/**
+ * Classe controleur rechercheAliment
+ */
 class RechercheAliment
 {
     public function __construct(){

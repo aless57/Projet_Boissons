@@ -2,6 +2,9 @@
 
 namespace boissons\models;
 
+/**
+ * Classe Hierarchie de la table hierarchie
+ */
 class Hierarchie extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'hierarchie';

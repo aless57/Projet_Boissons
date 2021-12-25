@@ -44,5 +44,4 @@ $app->get('/compte/panier/',ControleurCompte::class.':afficherPanier')->setName(
 $app->get('/ajouterElementPanier/{recette}&{login}',ControleurCompte::class.':ajoutAuPanier')->setName('ajoutAuPanier');
 $app->get('/supprimerElementPanier/{id}',ControleurCompte::class.':supprimerPanier')->setName('supprimerPanier');
 
-
 $app->run();
