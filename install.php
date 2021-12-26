@@ -129,17 +129,17 @@ $res = mysqli_query($mysqli,$sql) or die($sql . " : " . mysqli_error($mysqli));
 
 
 $sql = "ALTER TABLE `index`
-  MODIFY `idIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=495;";
+  MODIFY `idIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;";
 $res = mysqli_query($mysqli,$sql) or die($sql . " : " . mysqli_error($mysqli));
 
 
 $sql = "ALTER TABLE `panier`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;";
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;";
 $res = mysqli_query($mysqli,$sql) or die($sql . " : " . mysqli_error($mysqli));
 
 
 $sql = "ALTER TABLE `recettes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;";
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;";
 $res = mysqli_query($mysqli,$sql) or die($sql . " : " . mysqli_error($mysqli));
 
 
