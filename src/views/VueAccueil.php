@@ -219,9 +219,9 @@ FIN;
             }
         }
         $elementsRecherche .= "</p>";
-        $htmlRecette = "<h4 class='text-center'> Recette(s) </h4>";
-        var_dump($_SESSION['recherche']);
+        $htmlRecette = "";
         if(isset($_SESSION['recherche'][0])){
+            $htmlRecette = "<h4 class='text-center'> Recette(s) </h4>";
             $index = \boissons\models\Index::where("nom","LIKE",$_SESSION['recherche'][0])->get();
             $i = 0;
             foreach ($index as $unIndex){
@@ -290,8 +290,6 @@ FIN;
             });
         </script>
 FIN;
-
-
         return $html;
     }
 

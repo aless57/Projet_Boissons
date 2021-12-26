@@ -1,13 +1,5 @@
 <?php
 
-
-/*
- * SELECT idRecette FROM `index`
-WHERE idRecette IN (select idRecette from `index` where nom like 'Malibu')
-AND idRecette IN (select idRecette from `index` where nom like 'Cerise')
-GROUP BY idRecette;
- */
-
 require '../../vendor/autoload.php';
 use boissons\controls\RechercheAliment;
 
@@ -25,7 +17,7 @@ if(isset($_GET['nom'])){
             $html .=
                 "<div>" . $a['nom'] . "
                 </div> 
-                <a href=' " . ajouterElementSessions($test) ."' > Ajouter Element A</a>";
+                <a href=' " . ajouterElementSessions($test) ."' > Ajouter Element</a>";
             array_push($afficher, $a['nom']);
         }
         $listesc = RechercheAliment::getListSC($a['nom']);
@@ -35,7 +27,7 @@ if(isset($_GET['nom'])){
                 $html .=
                     "<div>".$s['nomSC']."
                     </div> 
-                <a href=''" . ajouterElementSessions($test2)."  > Ajouter Element B</a>";
+                <a href=''" . ajouterElementSessions($test2)."  > Ajouter Element</a>";
                 array_push($afficher, $s['nomSC']);
             }
         }
